@@ -5,6 +5,8 @@ import LoginPage from './pages/LoginPage'
 import Navbar from './components/Navbar'
 import HomePage from './pages/HomePage'
 import useAuthStore from './stores/useAuthStore'
+import AddBookPage from './pages/AddBookPage';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const { user,checkAuth } = useAuthStore();
@@ -20,7 +22,9 @@ function App() {
       <Route path="/" element={user ? <HomePage/> : <Navigate to="login"/>}/>
       <Route path="/signup" element={!user ? <SignupPage/> : <Navigate to="/"/>}/>
       <Route path="/login" element={!user ? <LoginPage/> : <Navigate to="/"/>}/>
+      <Route path="/add-book" element={ <AddBookPage/>}/>
     </Routes>
+    <Toaster/>
    </>
    
   )

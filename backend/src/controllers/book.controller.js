@@ -19,6 +19,7 @@ export const addBook = async (req, res) => {
             author,
             genre
         });
+        await book.save();
         return res.status(201).json({ message: "Book added successfully", book });
     } catch (error) {
         console.log("Error in addBook controller:", error.message);
