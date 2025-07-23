@@ -1,7 +1,7 @@
 import User from '../models/user.model.js';
 import bcrypt from 'bcryptjs';
 import { generateToken } from '../lib/token.js';
-export const Signup = async (req,res) =>{
+export const signup = async (req,res) =>{
     const {name, email, password} = req.body;
     try {
         if(!name || !email || !password){
@@ -24,9 +24,14 @@ export const Signup = async (req,res) =>{
         if(user){
             generateToken(user._id, res);
             await user.save();
-            res.status(201).json({message: "User created successfully"});
+            res.status(201).json({message: "User created successfully",
+                user: {
+                _id: user._id,
+                name: user.name,
+                email: user.email
+            }});
         }else{
-            return res.status(400).json({message: "failed to create user"});
+            return res.status(400).json({message: "failed to create user",});
         }  
         
     } catch (error) {
@@ -35,7 +40,7 @@ export const Signup = async (req,res) =>{
     }
 }
 
-export const Login = async (req,res) =>{
+export const login = async (req,res) =>{
     const {email, password} = req.body;
     try {
         if(!email || !password){
@@ -51,7 +56,12 @@ export const Login = async (req,res) =>{
         }
         generateToken(user._id, res);
         return res.status(200).json({
-            message: "Login successful"
+            message: "Login successful",
+            user: {
+                _id: user._id,
+                name: user.name,
+                email: user.email
+            }
         });
     } catch (error) {
         console.log("Login controller error: ", error.message);
