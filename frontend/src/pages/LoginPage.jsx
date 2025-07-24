@@ -16,7 +16,7 @@ export default function Signup() {
 
   return (
     <div className="max-w-sm mx-auto mt-10">
-      <h1 className="text-2xl font-bold mb-4 text-center">Sign Up</h1>
+      <h1 className="text-2xl font-bold mb-4 text-center">Log in</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
         <input
           type="email"

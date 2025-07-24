@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage'
 import useAuthStore from './stores/useAuthStore'
 import AddBookPage from './pages/AddBookPage';
 import { Toaster } from 'react-hot-toast';
+import BookDetailpage from './pages/BookDetailPage';
 
 function App() {
   const { user,checkAuth } = useAuthStore();
@@ -23,6 +24,7 @@ function App() {
       <Route path="/signup" element={!user ? <SignupPage/> : <Navigate to="/"/>}/>
       <Route path="/login" element={!user ? <LoginPage/> : <Navigate to="/"/>}/>
       <Route path="/add-book" element={ <AddBookPage/>}/>
+      <Route path="/book/:id" element={<BookDetailpage/>}/>
     </Routes>
     <Toaster/>
    </>

@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import { connectDB } from "./lib/db.js";
 import authRoutes from "./routes/auth.route.js";
 import bookRoutes from "./routes/book.route.js";
-
+import reviewRoutes from "./routes/review.route.js";
 dotenv.config();
 
 const port = process.env.PORT || 8000;
@@ -25,7 +25,7 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/book",bookRoutes);
-
+app.use("/api/review", reviewRoutes);
 
 app.listen(port,()=>{
     console.log("Server is running on port ",port);

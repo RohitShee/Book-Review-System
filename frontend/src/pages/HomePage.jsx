@@ -3,6 +3,8 @@ import { Plus, Filter } from "lucide-react";
 import { Link } from "react-router-dom";
 import useBookStore from "../stores/useBookStore";
 import { genres } from "../lib/genre";
+import BookCard from "../components/BookCard";
+import useReviewStore from "../stores/useReviewStore";
 export default function HomePage() {
   const {
     books,
@@ -11,7 +13,7 @@ export default function HomePage() {
     totalPages,
     currentPage,
   } = useBookStore();
-
+  const {clearReviews} = useReviewStore();
   const [filters, setFilters] = useState({
     title: "",
     author: "",
@@ -22,6 +24,8 @@ export default function HomePage() {
 
   useEffect(() => {
     getAllBooks(filters);
+    clearReviews();
+
   }, [filters]);
 
   const handleInputChange = (e) => {
@@ -90,20 +94,7 @@ export default function HomePage() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {books.map((book, i) => (
-            <div key={i} className="bg-white shadow rounded overflow-hidden">
-              <img
-                src={ `./public/book${Math.floor(Math.random() * 10)}.jpg` }
-                alt={book.title}
-                className="h-64 w-full object-fill"
-              />
-              <div className="p-4">
-                <h2 className="font-semibold text-lg">{book.title}</h2>
-                <p className="text-sm text-gray-600">by {book.author}</p>
-                <span className="inline-block mt-2 px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded">
-                  {book.genre}
-                </span>
-              </div>
-            </div>
+            <BookCard key={i} book={book} />
           ))}
         </div>
       )}

@@ -60,6 +60,7 @@ const useBookStore = create((set) => ({
             set({ loading: false });
         }
     },
+    
 }));
 
 export default useBookStore;
