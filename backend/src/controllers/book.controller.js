@@ -27,15 +27,45 @@ export const addBook = async (req, res) => {
     }
 }
 
-export const getAllBooks = async (req,res) =>{
-    try {
-        const books = await Book.find();
-        return res.status(200).json({ books });
-    } catch (error) {
-        console.log("Error in getAllBooks controller:", error.message);
-        return res.status(500).json({ message: "Internal server error" });
+export const getAllBooks = async (req, res) => {
+  try {
+    const { page = 1, limit = 9, author, genre, title } = req.query;
+
+    const filters = {};
+
+    if (author) {
+      filters.author = { $regex: new RegExp(author, 'i') }; // case-insensitive match
     }
-}
+
+    if (genre) {
+      filters.genre = genre; // exact match
+    }
+
+    if (title) {
+      filters.title = { $regex: new RegExp(title, 'i') }; // case-insensitive partial match
+    }
+
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+
+    const books = await Book.find(filters)
+      .skip(skip)
+      .limit(parseInt(limit));
+
+    const total = await Book.countDocuments(filters);
+
+    return res.status(200).json({
+      books,
+      totalPages: Math.ceil(total / limit),
+      currentPage: parseInt(page),
+      totalBooks: total
+    });
+
+  } catch (error) {
+    console.error("Error in getAllBooks controller:", error.message);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 
 export const getBookById = async (req, res) => {
     try {
