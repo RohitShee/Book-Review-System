@@ -49,8 +49,15 @@ export default function BookDetailPage() {
           </span>
 
           <div className="flex items-center gap-2 mb-4">
-            <Star className="text-yellow-500 fill-yellow-500 w-4 h-4" />
-            <span className="font-semibold">{avg_rating || "N/A"}</span>
+             <div className="flex">
+                {[...Array(5)].map((_, i) => (
+                <Star
+                  key={i}
+                  className={`w-4 h-4 ${i < Math.floor(avg_rating) ? "text-yellow-500 fill-yellow-500 " : "text-yellow-500"}`}
+                />
+                ))}
+             </div> 
+            <span className="font-semibold">{avg_rating.toFixed(2) || "N/A"}</span>
             <span className="flex items-center text-sm text-gray-500 ml-2">
               <MessageSquare className="w-4 h-4 mr-1" /> {reviews.length} reviews
             </span>

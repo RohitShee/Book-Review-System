@@ -15,8 +15,8 @@ export default function Navbar() {
   return (
     <nav className="flex items-center justify-between px-6 py-4 shadow-md bg-white">
       {/* Left: App Name */}
-      <Link to="/" className="flex items-center gap-2 font-bold text-xl text-blue-600">
-        <Book className="w-5 h-5" /> BookReview
+      <Link to="/" className="flex items-center gap-2 font-bold text-xl text-teal-600">
+        <Book className="w-5 h-5" /> PlotPoint
       </Link>
 
       {/* Right: Auth Section */}

@@ -16,6 +16,9 @@ export default function ReviewsSection({ reviews }) {
               {[...Array(review.rating)].map((_, i) => (
                 <Star key={i} size={16} fill="currentColor" stroke="none" />
               ))}
+              {[...Array(5-review.rating)].map((_, i) => (
+                <Star key={i} size={16} fill="none" stroke="currentColor" />
+              ))}
             </div>
           </div>
           <p className="text-sm text-gray-500 mb-2">

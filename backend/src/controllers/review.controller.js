@@ -1,5 +1,4 @@
 import Review from "../models/review.model.js";
-import User from "../models/user.model.js";
 export const addReview = async(req , res) =>{
     const { bookId, reviewText, rating } = req.body;
     const user = req.user;
@@ -21,7 +20,10 @@ export const addReview = async(req , res) =>{
             rating
         });
         await review.save();
-        return res.status(201).json({ message: "Review added successfully", review });
+        
+        const reviews = await Review.find({ bookId }).populate('userId', 'name email');
+        const avgRating = reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
+        return res.status(201).json({ message: "Review added successfully", reviews, avg_rating: avgRating });
     } catch (error) {
         console.log("Error in addReview controller:", error.message);
         return res.status(500).json({ message: "Internal server error" });

@@ -37,7 +37,7 @@ export default function Signup() {
         <button
           disabled={loading}
           className={`p-2 rounded text-white ${
-            loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
+            loading ? "bg-gray-400 cursor-not-allowed" : "bg-teal-500 hover:bg-teal-600"
           }`}
         >
           {loading ? "Signing up..." : "Sign Up"}

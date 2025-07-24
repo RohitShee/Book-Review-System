@@ -24,7 +24,7 @@ const useReviewStore = create((set) => ({
         try {
             const res = await axiosInstance.post("/review/add-review", review);
             set((state) => ({
-                reviews: [...state.reviews, res.data.review],
+                reviews: res.data.reviews,
                 avg_rating: res.data.avg_rating
             }));
             toast.success("Review added successfully");
